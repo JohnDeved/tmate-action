@@ -13,7 +13,6 @@ jobs:
         limit-access-to-actor: false
     - uses: actions/upload-artifact@v4
       with:
-        # echo "ARTIFACT_NAME=my-artifact" >> $GITHUB_ENV
         name: ${{ env.ARTIFACT_NAME }}
         path: /mnt/up
         compression-level: 0
