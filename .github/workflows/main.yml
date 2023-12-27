@@ -4,7 +4,7 @@ env:
   ARTIFACT_NAME: session
 
 jobs:
-  build:
+  run:
     runs-on: ubuntu-latest
     steps:
     - name: Setup tmate session
@@ -16,3 +16,4 @@ jobs:
         # echo "ARTIFACT_NAME=my-artifact" >> $GITHUB_ENV
         name: ${{ env.ARTIFACT_NAME }}
         path: /mnt/up
+        compression-level: 0
