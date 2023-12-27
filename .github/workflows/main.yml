@@ -1,5 +1,8 @@
 on: [workflow_dispatch]
 
+env:
+  ARTIFACT_NAME: session
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,5 +13,6 @@ jobs:
         limit-access-to-actor: false
     - uses: actions/upload-artifact@v4
       with:
-        name: session
+        # echo "ARTIFACT_NAME=my-artifact" >> $GITHUB_ENV
+        name: ${{ env.ARTIFACT_NAME }}
         path: /mnt/up
