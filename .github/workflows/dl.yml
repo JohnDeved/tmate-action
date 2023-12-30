@@ -19,7 +19,7 @@ jobs:
 
     - name: download file
       run: |
-        aria2c --daemon=false --seed-time=0 -d /mnt/up ${{ github.event.inputs.hash }} &&
+        echo '${{ github.event.inputs.hash }}' | aria2c --daemon=false --seed-time=0 -d /mnt/up --input-file=- &&
         echo "Downloaded files: $(ls /mnt/up)"
 
     - name: Set artifact name
