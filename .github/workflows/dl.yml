@@ -24,7 +24,7 @@ jobs:
 
     - name: download file
       run: |
-        aria2c --seed-time=0 -d /mnt/up ${{ github.event.inputs.hash }} &&
+        aria2c --daemon=false --seed-time=0 -d /mnt/up ${{ github.event.inputs.hash }} ; exit 0
 
     - name: Set artifact name
       run: echo "ARTIFACT_NAME=$(ls /mnt/up | head -n 1)" >> "$GITHUB_ENV"
