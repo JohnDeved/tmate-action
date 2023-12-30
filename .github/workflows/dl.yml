@@ -1,0 +1,37 @@
+on:
+  workflow_dispatch:
+    inputs:
+      hash:
+        description: 'url or magnet link'
+        required: true
+
+env:
+  ARTIFACT_NAME: default
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: create folder
+      run: |
+        sudo mkdir -p /mnt/up
+
+    - name: install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y aria2
+
+    - name: download file
+      run: |
+        aria2c --daemon=false -x 16 -s 16 -d /mnt/up ${{ github.event.inputs.hash }}
+
+    - name: Set artifact name
+      run: echo "ARTIFACT_NAME=$(ls /mnt/up | head -n 1)" >> "$GITHUB_ENV"
+
+    - name: upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.ARTIFACT_NAME }}
+        path: /mnt/up
+        compression-level: 0
