@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: create folder
       run: |
-        mkdir -p /mnt/up
+        sudo mkdir -p /mnt/up
 
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
