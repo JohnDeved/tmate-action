@@ -5,7 +5,7 @@ on:
         description: 'URL or Magnet Link'
         required: true
         
-run-name: Download {{ github.event.inputs.hash }
+run-name: Download {{ github.event.inputs.hash }}
 
 env:
   ARTIFACT_NAME: default
