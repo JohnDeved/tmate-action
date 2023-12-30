@@ -6,11 +6,17 @@ env:
 jobs:
   run:
     runs-on: ubuntu-latest
+
     steps:
+    - name: create folder
+      run: |
+        mkdir -p /mnt/up
+
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       with:
         limit-access-to-actor: false
+        sudo: true
 
     - name: Set artifact name
       run: echo "ARTIFACT_NAME=$(ls /mnt/up | head -n 1)" >> "$GITHUB_ENV"
