@@ -11,7 +11,12 @@ jobs:
       uses: mxschmitt/action-tmate@v3
       with:
         limit-access-to-actor: false
-    - uses: actions/upload-artifact@v4
+
+    - name: Set artifact name
+      run: echo "ARTIFACT_NAME=$(ls /mnt/up | head -n 1)" >> "$GITHUB_ENV"
+
+    - name: upload artifact
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.ARTIFACT_NAME }}
         path: /mnt/up
