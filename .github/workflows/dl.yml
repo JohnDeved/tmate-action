@@ -2,30 +2,33 @@ on:
   workflow_dispatch:
     inputs:
       hash:
-        description: 'url or magnet link'
+        description: 'URL or Magnet Link'
         required: true
+        
+run-name: Download {{ github.event.inputs.hash }
 
 env:
   ARTIFACT_NAME: default
 
 jobs:
-  run:
+  download_and_upload:
+    name: Download and Upload Job
     runs-on: ubuntu-latest
 
     steps:
-    - name: create folder
+    - name: Create Download Directory
       run: |
         sudo mkdir -p /mnt/up
 
-    - name: download file
+    - name: Download File Using Aria2
       run: |
         echo '${{ github.event.inputs.hash }}' | sudo aria2c --daemon=false --seed-time=0 -d /mnt/up --input-file=- &&
         echo "Downloaded files: $(ls /mnt/up)"
 
-    - name: Set artifact name
+    - name: Set Artifact Name
       run: echo "ARTIFACT_NAME=$(ls /mnt/up | head -n 1)" >> "$GITHUB_ENV"
 
-    - name: upload artifact
+    - name: Upload Artifact to GitHub
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.ARTIFACT_NAME }}
