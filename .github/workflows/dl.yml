@@ -17,11 +17,6 @@ jobs:
       run: |
         sudo mkdir -p /mnt/up
 
-    - name: install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y aria2
-
     - name: download file
       run: |
         aria2c --daemon=false --seed-time=0 -d /mnt/up ${{ github.event.inputs.hash }} ; exit 0
